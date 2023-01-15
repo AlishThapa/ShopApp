@@ -13,9 +13,15 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final productId= ModalRoute.of(context)?.settings.arguments as String;
     final loadedProduct = Provider.of<products>(context , listen: false).findById(productId);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(loadedProduct.title),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(loadedProduct.title),
+        ),
       ),
     );
   }
